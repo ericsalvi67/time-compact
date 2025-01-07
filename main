@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int proxhorario(unsigned int hora)
+{
+    unsigned int x=0;
+    unsigned int k=(23<<12)+(59<<6)+59;
+    unsigned int h;
+    unsigned int m;
+    unsigned int s;
+
+    s=hora & 0x03f;
+    m=(hora>>6) & 0x03f;
+    h=(hora>>12) & 0x03f;
+
+    printf("%02d:%02d:%02d\n",h,m,s);
+
+    x+=h;
+    x=x<<6;
+    x+=m;
+    x=x<<6;
+    s++;
+    x+=s;
+
+    if(x>k)
+    {
+        x=0;
+    }
+
+    return x;
+}
+
+int main()
+{
+    unsigned int hora = 0x13b9e;
+
+    unsigned int x=proxhorario(hora);
+    printf("HORARIO NOVO: % 5d %5x\n",x,x);
+}
